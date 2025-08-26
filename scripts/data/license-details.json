@@ -1,0 +1,93 @@
+[
+  {
+    "spdxName": "CC0-1.0",
+    "shouldDiscloseSource": false,
+    "shouldHaveSameLicense": false,
+    "shouldHaveLicenseNotice": false,
+    "type": "public-domain"
+  },
+  {
+    "spdxName": "MIT",
+    "shouldDiscloseSource": false,
+    "shouldHaveSameLicense": false,
+    "shouldHaveLicenseNotice": true,
+    "type": "permissive"
+  },
+  {
+    "spdxName": "Apache-2.0",
+    "shouldDiscloseSource": false,
+    "shouldHaveSameLicense": false,
+    "shouldHaveLicenseNotice": true,
+    "type": "permissive"
+  },
+  {
+    "spdxName": "BSD-2-Clause",
+    "shouldDiscloseSource": false,
+    "shouldHaveSameLicense": false,
+    "shouldHaveLicenseNotice": true,
+    "type": "permissive"
+  },
+  {
+    "spdxName": "BSD-3-Clause",
+    "shouldDiscloseSource": false,
+    "shouldHaveSameLicense": false,
+    "shouldHaveLicenseNotice": true,
+    "type": "permissive"
+  },
+  {
+    "spdxName": "MPL-2.0",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "lgpl"
+  },
+  {
+    "spdxName": "LGPL-2.1-only",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "lgpl"
+  },
+  {
+    "spdxName": "LGPL-3.0-only",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "lgpl"
+  },
+  {
+    "spdxName": "GPL-2.0-only",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "copyleft"
+  },
+  {
+    "spdxName": "GPL-3.0-only",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "copyleft"
+  },
+  {
+    "spdxName": "AGPL-3.0-only",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "copyleft"
+  },
+  {
+    "spdxName": "EPL-2.0",
+    "shouldDiscloseSource": true,
+    "shouldHaveSameLicense": true,
+    "shouldHaveLicenseNotice": true,
+    "type": "copyleft"
+  },
+  {
+    "spdxName": "Unlicense",
+    "shouldDiscloseSource": false,
+    "shouldHaveSameLicense": false,
+    "shouldHaveLicenseNotice": false,
+    "type": "public-domain"
+  }
+]

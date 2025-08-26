@@ -1,0 +1,31 @@
+on:
+  workflow_call:
+    inputs:
+      WORKING_DIRECTORY:
+          required: true
+          type: string
+
+env:
+  DOTNET_VERSION: 9.0.x
+
+jobs:
+  license-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+            dotnet-version: '9.0.x'
+
+      - name: Build project
+        run: |
+          dotnet restore
+        working-directory: ${{ inputs.WORKING_DIRECTORY }}
+        
+      - name: NuGet license check
+        uses: ./.github/actions/nuget-licenses
+        with:
+            WORKING_DIRECTORY: ${{ inputs.WORKING_DIRECTORY }}

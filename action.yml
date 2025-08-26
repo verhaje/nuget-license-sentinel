@@ -1,0 +1,36 @@
+name: 'NuGet License Sentinel'
+description: 'Automatically check and validate NuGet package licenses for compliance with your organization policies'
+author: 'jeroe'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  working-directory:
+    description: 'The working directory where your project is located'
+    required: false
+    default: '.'
+  
+  fail-on-violations:
+    description: 'Whether to fail the workflow when invalid licenses are found'
+    required: false
+    default: 'false'
+  
+  license-rules-path:
+    description: 'Path to the license-rules.json configuration file'
+    required: false
+    default: './license-rules.json'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run NuGet License Analysis
+      shell: pwsh
+      run: |
+        & "scripts/process.ps1" `
+          -workingDir "${{ inputs.working-directory }}" `
+          -failOnViolations "${{ inputs.fail-on-violations }}" `
+          -licenseRulesPath "${{ inputs.license-rules-path }}"
+      env:
+        GITHUB_OUTPUT: ${{ github.env.GITHUB_OUTPUT || '' }}

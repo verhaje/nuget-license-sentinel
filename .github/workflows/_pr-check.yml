@@ -1,0 +1,17 @@
+name: Pester
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  test-pwsh:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run Pester tests
+      run: |
+        Invoke-Pester -Path "./scripts" -OutputFormat NUnitXml -OutputFile "./scripts/test-results.xml" -PassThru | Select-Object -Property Name, Result, Duration | Format-Table -AutoSize
+      shell: pwsh
