@@ -81,12 +81,31 @@ function Get-ProjectFiles($slnPath) {
 
 function Get-PackageReferences($csprojPath) {
     [xml]$xml = Get-Content $csprojPath
-    $xml.Project.ItemGroup.PackageReference | ForEach-Object {
-        [PSCustomObject]@{
-            Name    = $_.Include
-            Version = $_.Version
+    $packageReferences = @()
+
+    # Check for PackageReference nodes (used in SDK-style projects)
+    if ($xml.Project.ItemGroup.PackageReference) {
+        $packageReferences += $xml.Project.ItemGroup.PackageReference | ForEach-Object {
+            [PSCustomObject]@{
+                Name    = $_.Include
+                Version = $_.Version
+            }
         }
-    } | Sort-Object Name, Version -Unique
+    }
+
+    # Check for packages.config (used in full .NET Framework projects)
+    $packagesConfigPath = Join-Path (Split-Path $csprojPath) "packages.config"
+    if (Test-Path $packagesConfigPath) {
+        [xml]$packagesConfigXml = Get-Content $packagesConfigPath
+        $packageReferences += $packagesConfigXml.packages.package | ForEach-Object {
+            [PSCustomObject]@{
+                Name    = $_.id
+                Version = $_.version
+            }
+        }
+    }
+
+    return $packageReferences | Sort-Object Name, Version -Unique
 }
 
 function Get-LicenseInfo($packageName, $packageVersion) {
