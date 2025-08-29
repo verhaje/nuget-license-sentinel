@@ -28,7 +28,7 @@ runs:
     - name: Run NuGet License Analysis
       shell: pwsh
       run: |
-        & "scripts/process.ps1" `
+        & "${{ github.action_path }}/scripts/process.ps1" `
           -workingDir "${{ inputs.working-directory }}" `
           -failOnViolations "${{ inputs.fail-on-violations }}" `
           -licenseRulesPath "${{ inputs.license-rules-path }}"
