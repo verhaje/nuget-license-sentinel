@@ -25,5 +25,5 @@ winget install Microsoft.PowerShell
 Run this command to run the licensing script
 
 ```pwsh
-./scripts/process.ps1 -workingDir "./samples/basic/simpleConsoleApplication"                          
+./scripts/process.ps1 -workingDir "./samples/basic/SimpleConsoleApplication"                          
 ```

@@ -15,4 +15,4 @@ jobs:
     name: Scan (open-source) licenses
     uses: ./.github/workflows/_license-check.yml
     with:
-      WORKING_DIRECTORY: './samples/basic/SimpleConsoleApplication'
+      working-directory: './samples/basic/SimpleConsoleApplication'

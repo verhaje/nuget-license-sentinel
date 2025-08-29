@@ -1,6 +1,11 @@
 
 function Get-NugetCacheLicenseInfo($packageName, $packageVersion) {
-    $nugetCache = Join-Path $env:USERPROFILE ".nuget\packages\$packageName\$packageVersion"
+    if ($IsWindows) {
+        $nugetCache = Join-Path $env:USERPROFILE ".nuget\packages\$packageName\$packageVersion"
+    } else {
+        $nugetCache = Join-Path $env:HOME ".nuget/packages/$($packageName.ToLower())/$packageVersion"
+    }
+    
     $nuspecPath = Get-ChildItem -Path $nugetCache -Filter *.nuspec -ErrorAction SilentlyContinue | Select-Object -First 1
     if ($nuspecPath) {
         [xml]$nuspecXml = Get-Content $nuspecPath.FullName
