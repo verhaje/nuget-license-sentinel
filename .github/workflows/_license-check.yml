@@ -26,6 +26,6 @@ jobs:
         working-directory: ${{ inputs.WORKING_DIRECTORY }}
         
       - name: NuGet license check
-        uses: ./.github/actions/nuget-licenses
+        uses: ./verhaje/nuget-license-sentinel
         with:
             WORKING_DIRECTORY: ${{ inputs.WORKING_DIRECTORY }}
