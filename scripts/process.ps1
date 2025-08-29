@@ -1,6 +1,6 @@
 param(
     [string]$workingDir = "$(Get-Location)",
-    [bool]$failOnViolations = $false,
+    [string]$failOnViolations = "false",
     [string]$licenseRulesPath = ""
 )
 
@@ -220,7 +220,14 @@ else {
     Write-Host $convertedMarkdown
 }
 
-if ($failOnViolations -and $disallowedPackagesList.Count -gt 0) {
+$failOnViolationsBool = $false
+try {
+    $failOnViolationsBool = [System.Convert]::ToBoolean($failOnViolations)
+} catch {
+    Write-Output "Invalid value for failOnViolations. Defaulting to false."
+}
+
+if ($failOnViolationsBool -and $disallowedPackagesList.Count -gt 0) {
     [Environment]::Exit(1603)
 }
 

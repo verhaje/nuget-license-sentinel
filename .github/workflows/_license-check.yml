@@ -1,7 +1,7 @@
 on:
   workflow_call:
     inputs:
-      WORKING_DIRECTORY:
+      working-directory:
           required: true
           type: string
 
@@ -23,9 +23,9 @@ jobs:
       - name: Build project
         run: |
           dotnet restore
-        working-directory: ${{ inputs.WORKING_DIRECTORY }}
-        
+        working-directory: ${{ inputs.working-directory }}
+
       - name: NuGet license check
-        uses: ./verhaje/nuget-license-sentinel
+        uses: ./
         with:
-            WORKING_DIRECTORY: ${{ inputs.WORKING_DIRECTORY }}
+            working-directory: ${{ inputs.working-directory }}
