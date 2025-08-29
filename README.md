@@ -28,9 +28,7 @@
 
 | Name | Description |
 |------|-------------|
-| `license-report` | Summary of license compliance check results |
-| `compliant-packages` | Number of packages with compliant licenses |
-| `non-compliant-packages` | Number of packages with non-compliant licenses |
+| `non-compliant-packages` | Json with packages with non-compliant licenses |
 
 ## 🚀 Quick Start
 

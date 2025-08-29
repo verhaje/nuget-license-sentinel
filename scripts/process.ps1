@@ -223,4 +223,10 @@ else {
 if ($failOnViolations -and $disallowedPackagesList.Count -gt 0) {
     [Environment]::Exit(1603)
 }
+
+if ($disallowedPackagesList.Count -gt 0) {
+    $nonCompliantPackagesJson = $disallowedPackagesList | ConvertTo-Json -Depth 10
+    Write-Output "::set-output name=non-compliant-packages::$nonCompliantPackagesJson"
+}
+
 Write-Output "🎉 NuGet License Sentinel analysis completed successfully!"
