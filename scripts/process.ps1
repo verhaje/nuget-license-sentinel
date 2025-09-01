@@ -49,6 +49,7 @@ if (Test-Path $rulesPath) {
             name       = $_.name
             minVersion = $_.minVersion
             maxVersion = $_.maxVersion
+            comment = $_.comment
         }
     }
     $allowedPackages = $rulesJson.allowedPackages | ForEach-Object {
@@ -84,15 +85,15 @@ foreach ($project in $root.projects) {
                 foreach ($package in $license.packages) {
                     $packageName = $package.name
                     $packageVersion = $package.version
-                    $isDisallowed = ContainsPackage -packageName $packageName -packageVersion $packageVersion -packages $disallowedPackages
-                    if ($isDisallowed) {
+                    $packageResult = ContainsPackage -packageName $packageName -packageVersion $packageVersion -packages $disallowedPackages
+                    if ($packageResult.hasMatch -eq $true) {
                         $disallowedPackageCount += 1
                         $matchingDisallowedPackage = $disallowedPackages | Where-Object {
                             $_.name -eq $packageName -and 
                             ($_.minVersion -le $packageVersion -or [string]::IsNullOrEmpty($_.minVersion)) -and 
                             ($_.maxVersion -ge $packageVersion -or [string]::IsNullOrEmpty($_.maxVersion))
                         }
-                        $comment = $matchingDisallowedPackage.comment
+                        $comment = $packageResult.comment
                         Write-Host $matchingDisallowedPackage
 
                         $disallowedPackagesList += [PSCustomObject]@{
@@ -119,8 +120,8 @@ foreach ($project in $root.projects) {
                 foreach ($package in $license.packages) {
                     $packageName = $package.name
                     $packageVersion = $package.version
-                    $isAllowedPackage = ContainsPackage -packageName $packageName -packageVersion $packageVersion -packages $allowedPackages
-                    if ($isAllowedPackage) {
+                    $packageResult = ContainsPackage -packageName $packageName -packageVersion $packageVersion -packages $allowedPackages
+                    if ($packageResult.hasMatch -eq $true) {
                         $allowedPackagesCount += 1
                     }
                     else {

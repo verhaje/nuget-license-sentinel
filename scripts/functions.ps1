@@ -6,7 +6,7 @@ function ContainsPackage {
     )
 
     if (-not $packageName -or -not $packageVersion -or -not $packages) {
-        return $false
+        return @{ hasMatch = $false }
     }
 
     foreach ($package in $packages) {
@@ -15,15 +15,18 @@ function ContainsPackage {
             $maxVersion = $package.maxVersion
 
             if (-not [string]::IsNullOrEmpty($minVersion) -and [version]$packageVersion -lt [version]$minVersion) {
-                return $false
+                return @{ hasMatch = $false }
             }
             if (-not [string]::IsNullOrEmpty($maxVersion) -and [version]$packageVersion -gt [version]$maxVersion) {
-                return $false
+                return @{ hasMatch = $false }
             }
-            return $true
+            return @{
+                 hasMatch = $true
+                 comment = $package.comment
+                 }
         }
     }
-    return $false
+    return @{ hasMatch = $false }
 }
 
 function Get-SpdxLicensesFromExpression {

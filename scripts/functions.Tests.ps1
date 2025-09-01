@@ -14,7 +14,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result =  ContainsPackage -packageName "TestPackage" -packageVersion "1.5.0" -packages $allowedPackages
-            $result | Should -Be $true
+            $result.hasMatch | Should -Be $true
         }
 
         It "Returns $true for a package within allowed version range and only minVersion" {
@@ -25,7 +25,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result =  ContainsPackage -packageName "TestPackage" -packageVersion "1.5.0" -packages $allowedPackages
-            $result | Should -Be $true
+            $result.hasMatch | Should -Be $true
         }
 
         It "Returns $true for a package within allowed version range and only minVersion" {
@@ -36,7 +36,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result =  ContainsPackage -packageName "TestPackage" -packageVersion "1.5.0" -packages $allowedPackages
-            $result | Should -Be $true
+            $result.hasMatch | Should -Be $true
         }
 
         It "Returns $false for a package below allowed version range" {
@@ -48,7 +48,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result = ContainsPackage -packageName "TestPackage" -packageVersion "0.9.0" -packages $allowedPackages
-            $result | Should -Be $false
+            $result.hasMatch | Should -Be $false
         }
 
         It "Returns $true for a package when no range is defined" {
@@ -58,7 +58,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result = ContainsPackage -packageName "TestPackage" -packageVersion "1.5.0" -packages $disallowedPackages
-            $result | Should -Be $true
+            $result.hasMatch | Should -Be $true
         }
 
         It "Returns $false for a package above allowed version range" {
@@ -70,7 +70,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result = ContainsPackage -packageName "TestPackage" -packageVersion "2.1.0" -packages $allowedPackages
-            $result | Should -Be $false
+            $result.hasMatch| Should -Be $false
         }
 
         It "Returns $true for a package with exact maxVersion" {
@@ -82,7 +82,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result = ContainsPackage -packageName "TestPackage" -packageVersion "2.0.0" -packages $allowedPackages
-            $result | Should -Be $true
+            $result.hasMatch| Should -Be $true
         }
 
         It "Returns $true for a package with exact minVersion" {
@@ -94,7 +94,7 @@ Describe "Package Validation Functions" {
                 }
             )
             $result = ContainsPackage -packageName "TestPackage" -packageVersion "1.0.0" -packages $allowedPackages
-            $result | Should -Be $true
+            $result.hasMatch | Should -Be $true
         }
     }
 
@@ -102,7 +102,7 @@ Describe "Package Validation Functions" {
         It "Returns $false for a package not listed in allowed packages" {
             $allowedPackages = @()
             $result = ContainsPackage -packageName "UnlistedPackage" -packageVersion "1.0.0" -packages $allowedPackages
-            $result | Should -Be $false
+            $result.hasMatch | Should -Be $false
         }
     }
 }

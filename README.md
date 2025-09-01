@@ -16,6 +16,8 @@
 - 🚨 **Configurable Failure** - Option to fail workflows on license violations
 - 🏷️ **Multiple License Support** - Handles complex SPDX license expressions
 
+The compliance report is automatically generated and displayed in the `GitHub Actions job summary`, providing clear insights into license validation results directly within your workflow.
+
 ## 📥 Inputs
 
 | Name | Description | Required | Default |
@@ -63,20 +65,9 @@ jobs:
         run: dotnet restore
 
       - name: NuGet License Check
-        uses: verhaje/license-check-gha@v1
+        uses: verhaje/license-check-gha@v0.0.1
         with:
           working-directory: './src'
-          fail-on-invalid-licenses: 'true'
-```
-
-### Advanced Usage with Custom Rules
-
-```yaml
-      - name: NuGet License Check with Custom Rules
-        uses: verhaje/license-check-gha@v1
-        with:
-          working-directory: './MyProject'
-          license-rules-path: './custom-license-rules.json'
           fail-on-invalid-licenses: 'true'
 ```
 
@@ -115,6 +106,7 @@ The action looks for a `license-rules.json` file in your project directory to cu
   - `name`: Package name (required)
   - `minVersion`: Minimum version to block (optional)
   - `maxVersion`: Maximum version to block (optional)
+  - `comment`: Comment why the package is disallowed(optional)
 
 - **`allowedPackages`** ✅  
   Array of package objects that are always allowed, even if their license is not in `allowedLicenses`. Useful for internal packages or special exceptions. Supports version range filtering:
