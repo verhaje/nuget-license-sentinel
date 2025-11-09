@@ -7,6 +7,7 @@
 
 **NuGet License Sentinel** is a powerful GitHub Action that automatically analyzes and validates the licenses of NuGet packages in your .NET projects. Ensure your dependencies comply with your organization's licensing policies and avoid legal complications.
 
+
 ## ✨ Features
 
 - 🔍 **Comprehensive License Analysis** - Scans all NuGet packages for license information
@@ -65,7 +66,7 @@ jobs:
         run: dotnet restore
 
       - name: NuGet License Check
-        uses: verhaje/license-check-gha@v0.0.1
+        uses: verhaje/license-check-gha@v0.0.2
         with:
           working-directory: './src'
           fail-on-invalid-licenses: 'true'
@@ -157,6 +158,9 @@ The action generates comprehensive reports in your GitHub workflow:
 - 🔍 **Expandable Details** - Project-by-project license breakdown
 - ⚠️ **Violation Highlights** - Clear identification of problematic packages
 
+Screenshot of the GitHub job summary:
+![NuGet License Sentinel Screenshot](assets/screenshot.png)
+
 ## 🔧 Requirements
 
 - .NET project with NuGet packages
@@ -164,41 +168,14 @@ The action generates comprehensive reports in your GitHub workflow:
 
 ## 🤝 Contributing
 
-We welcome contributions! Here's how you can help:
-
-1. 🍴 **Fork the repository**
-2. 🌟 **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. 💡 **Make your changes**
-4. ✅ **Run tests** (`./scripts/test.ps1`)
-5. 📝 **Commit your changes** (`git commit -m 'Add amazing feature'`)
-6. 🚀 **Push to the branch** (`git push origin feature/amazing-feature`)
-7. 🎯 **Open a Pull Request**
-
 Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE) - see the LICENSE file for details.
 
-## 🐛 Support & Issues
-
-- 📋 **Found a bug?** [Open an issue](https://github.com/your-username/license-check-gha/issues)
-- 💡 **Have a feature request?** [Start a discussion](https://github.com/your-username/license-check-gha/discussions)
-- 📚 **Need help?** Check out our [documentation](https://github.com/your-username/license-check-gha/wiki)
-
-## 🌟 Show Your Support
-
-If this action helped you, please:
-- ⭐ Star this repository
-- 🐦 Share it on social media
-- 📝 Write a blog post about it
-
 ## 🔗 Related Projects
 
 - [GitHub Actions Marketplace](https://github.com/marketplace?type=actions) - Discover more GitHub Actions
 
 ---
-
-<p align="center">
-  <strong>Made with ❤️ for the .NET community</strong>
-</p>
