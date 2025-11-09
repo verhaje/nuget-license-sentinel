@@ -78,9 +78,48 @@ function Get-LicenseInfoWithCache($packageName, $packageVersion) {
 }
 
 function Get-ProjectFiles($slnPath) {
+    # Check if it's a .slnx file
+    if ($slnPath -like "*.slnx") {
+        return Get-SlnxProjectFiles $slnPath
+    }
+    
+    # Process regular .sln files
     Select-String -Path $slnPath -Pattern 'Project\(' | ForEach-Object {
         $_.Line -match '",\s*"([^"]+\.csproj)"' | Out-Null
         Join-Path (Split-Path $slnPath) $matches[1]
+    }
+}
+
+function Get-SlnxProjectFiles($slnxPath) {
+    try {
+        [xml]$xml = Get-Content $slnxPath
+        $projects = @()
+
+        # Get all .csproj files from the solution
+        $xml.SelectNodes("//Project") | 
+            Where-Object { $_.Path -like "*.csproj" } |
+            ForEach-Object {
+                $csprojPath = $_.Path
+                
+                # Convert relative paths to absolute
+                if (-not [System.IO.Path]::IsPathRooted($csprojPath)) {
+                    $csprojPath = Join-Path (Split-Path $slnxPath) $csprojPath
+                }
+                
+                # Normalize path and add to results if file exists
+                $normalizedPath = [System.IO.Path]::GetFullPath($csprojPath)
+                if (Test-Path $normalizedPath) {
+                    $projects += $normalizedPath
+                } else {
+                    Write-Warning "Project file not found: $normalizedPath"
+                }
+            }
+        
+        return $projects
+    }
+    catch {
+        Write-Error "Failed to parse .slnx file: $_"
+        return @()
     }
 }
 
@@ -136,9 +175,13 @@ function Get-LicenseInfo($packageName, $packageVersion) {
 }
 
 function Get-LicensesFromSolution($solutionPath) {
+    # Look for both .sln and .slnx files
     $slnFile = Get-ChildItem -Path $SolutionPath -Filter *.sln | Select-Object -First 1
     if (-not $slnFile) {
-        Write-Error "No solution file found in $SolutionPath"
+        $slnFile = Get-ChildItem -Path $SolutionPath -Filter *.slnx | Select-Object -First 1
+    }
+    if (-not $slnFile) {
+        Write-Error "No solution file (.sln or .slnx) found in $SolutionPath"
         exit 1
     }
 
